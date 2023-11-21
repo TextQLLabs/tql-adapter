@@ -48,7 +48,10 @@ export default function (options = {}) {
             });
 
             await esbuild.build({
-                plugins: [NodeModulesPolyfillPlugin(), NodeGlobalsPolyfillPlugin()],
+                plugins: [NodeModulesPolyfillPlugin(), NodeGlobalsPolyfillPlugin({
+                    buffer: true,
+                    process: true,
+                })],
                 platform: 'browser',
                 conditions: ['worker', 'browser'],
                 sourcemap: 'linked',
