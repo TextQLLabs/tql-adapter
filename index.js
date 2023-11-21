@@ -2,6 +2,7 @@ import { writeFileSync } from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as esbuild from 'esbuild';
+import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
 
 /** @type {import('./index.js').default} */
 export default function (options = {}) {
@@ -46,7 +47,8 @@ export default function (options = {}) {
             });
 
             await esbuild.build({
-                platform: 'node',
+                plugins: [NodeModulesPolyfillPlugin()],
+                platform: 'browser',
                 conditions: ['worker', 'browser'],
                 sourcemap: 'linked',
                 target: 'es2022',
